@@ -1,0 +1,11 @@
+[
+  {
+    "id": "1785650815023",
+    "cropType": "Tomato",
+    "disease": "Early Blight",
+    "confidence": 79,
+    "treatment": "Use chlorothalonil spray. Improve air circulation. Remove lower infected leaves.",
+    "severity": "Medium",
+    "createdAt": "2026-08-02T06:06:55.023Z"
+  }
+]
