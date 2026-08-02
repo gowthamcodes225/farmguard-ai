@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { addScan } from "@/lib/db";
 import { DEMO_LABELS, getTreatment } from "@/lib/treatments";
 
+export const dynamic = "force-dynamic";
+
 const HF_MODEL = "linkanjarad/crop_leaf_diseases_vit";
 
 async function analyzeWithHF(imageBase64: string): Promise<string | null> {

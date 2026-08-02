@@ -2,22 +2,13 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-
-interface Scan {
-  id: string;
-  cropType: string;
-  disease: string;
-  confidence: number;
-  treatment: string;
-  severity: string;
-  createdAt: string;
-}
+import { getClientScans, type Scan } from "@/lib/clientScans";
 
 export default function DashboardPage() {
   const [scans, setScans] = useState<Scan[]>([]);
 
   useEffect(() => {
-    fetch("/api/scans").then((r) => r.json()).then(setScans);
+    setScans(getClientScans());
   }, []);
 
   const highRisk = scans.filter((s) => s.severity === "High").length;
@@ -56,7 +47,9 @@ export default function DashboardPage() {
         <div className="bg-slate-900 border border-slate-700 rounded-xl overflow-hidden">
           <div className="px-6 py-4 border-b border-slate-700 font-semibold">Scan History</div>
           {scans.length === 0 ? (
-            <p className="p-6 text-slate-500 text-sm">No scans yet. Go to Scan page to analyze a crop.</p>
+            <p className="p-6 text-slate-500 text-sm">
+              No scans yet. Go to Scan page, upload a leaf image, and click Analyze.
+            </p>
           ) : (
             <table className="w-full text-sm">
               <thead className="text-slate-400 border-b border-slate-700">

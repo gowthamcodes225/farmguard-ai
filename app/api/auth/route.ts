@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 const DEMO_USER = { email: "farmer@farmguard.ai", password: "demo123", name: "Demo Farmer" };
 
 export async function POST(req: NextRequest) {

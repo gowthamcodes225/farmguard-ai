@@ -2,45 +2,52 @@
 
 import { useState } from "react";
 import Link from "next/link";
-
-interface ScanResult {
-  disease: string;
-  confidence: number;
-  treatment: string;
-  severity: string;
-  cropType: string;
-}
+import { compressImage, saveClientScan, type Scan } from "@/lib/clientScans";
 
 export default function ScanPage() {
   const [cropType, setCropType] = useState("Tomato");
   const [preview, setPreview] = useState<string | null>(null);
   const [imageBase64, setImageBase64] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<ScanResult | null>(null);
+  const [error, setError] = useState("");
+  const [result, setResult] = useState<Scan | null>(null);
 
-  function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
+  async function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => {
-      const dataUrl = reader.result as string;
-      setPreview(dataUrl);
-      setImageBase64(dataUrl.split(",")[1]);
+    setError("");
+    try {
+      const base64 = await compressImage(file);
+      setImageBase64(base64);
+      setPreview(`data:image/jpeg;base64,${base64}`);
       setResult(null);
-    };
-    reader.readAsDataURL(file);
+    } catch {
+      setError("Could not load image. Try a smaller JPG/PNG file.");
+    }
   }
 
   async function analyze() {
     if (!imageBase64) return;
     setLoading(true);
-    const res = await fetch("/api/analyze", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ image: imageBase64, cropType }),
-    });
-    if (res.ok) setResult(await res.json());
-    setLoading(false);
+    setError("");
+    try {
+      const res = await fetch("/api/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ image: imageBase64, cropType }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error || "Analysis failed. Please try again.");
+        return;
+      }
+      saveClientScan(data);
+      setResult(data);
+    } catch {
+      setError("Network error. Check your connection and try again.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   const severityColor =
@@ -62,6 +69,12 @@ export default function ScanPage() {
           <h1 className="text-2xl font-bold">Crop Disease Scanner</h1>
           <p className="text-slate-400 text-sm mt-1">Upload a leaf photo for AI-powered disease detection</p>
         </div>
+
+        {error && (
+          <div className="bg-red-900/40 border border-red-700 text-red-300 text-sm rounded-lg px-4 py-3">
+            {error}
+          </div>
+        )}
 
         <div className="grid md:grid-cols-2 gap-6">
           <div className="space-y-4">
