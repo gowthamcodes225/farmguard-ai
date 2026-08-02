@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FarmGuard AI — Presentation | FutureTech HackFest 2026</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #0f172a;
+      color: #f1f5f9;
+      overflow: hidden;
+    }
+    .deck { width: 100vw; height: 100vh; position: relative; }
+    .slide {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 48px 72px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.4s ease;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+    }
+    .slide.active { opacity: 1; pointer-events: auto; z-index: 1; }
+    .slide::before {
+      content: '';
+      position: absolute; top: -20%; right: -10%;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(16,185,129,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    h1 { font-size: 2.8rem; line-height: 1.2; margin-bottom: 16px; }
+    h2 { font-size: 2rem; color: #34d399; margin-bottom: 28px; }
+    h3 { font-size: 1.2rem; color: #94a3b8; margin-bottom: 12px; font-weight: 500; }
+    p, li { font-size: 1.25rem; line-height: 1.7; color: #cbd5e1; }
+    ul { list-style: none; margin-top: 8px; }
+    ul li { padding: 10px 0; padding-left: 28px; position: relative; }
+    ul li::before {
+      content: '▸'; position: absolute; left: 0; color: #10b981; font-weight: bold;
+    }
+    .tag {
+      display: inline-block; background: #10b981; color: #0f172a;
+      font-size: 0.85rem; font-weight: 700; padding: 6px 14px;
+      border-radius: 20px; margin-bottom: 20px;
+    }
+    .subtitle { font-size: 1.35rem; color: #94a3b8; margin-bottom: 8px; }
+    .highlight { color: #34d399; font-weight: 600; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 16px; }
+    .card {
+      background: rgba(30,41,59,0.8); border: 1px solid #334155;
+      border-radius: 16px; padding: 24px;
+    }
+    .card h4 { color: #34d399; font-size: 1.1rem; margin-bottom: 12px; }
+    .card p, .card li { font-size: 1.05rem; }
+    .stats { display: flex; gap: 24px; margin-top: 24px; }
+    .stat {
+      flex: 1; text-align: center; padding: 20px;
+      background: rgba(16,185,129,0.1); border: 1px solid #10b98140;
+      border-radius: 12px;
+    }
+    .stat .num { font-size: 2.5rem; font-weight: 800; color: #34d399; }
+    .stat .lbl { font-size: 0.9rem; color: #94a3b8; margin-top: 4px; }
+    .flow { display: flex; align-items: center; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
+    .flow-step {
+      background: #1e293b; border: 1px solid #475569;
+      padding: 14px 20px; border-radius: 10px; font-size: 1rem;
+    }
+    .flow-arrow { color: #10b981; font-size: 1.5rem; }
+    .tech-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px; }
+    .tech-item {
+      background: #1e293b; border: 1px solid #334155;
+      padding: 16px; border-radius: 10px; text-align: center;
+      font-size: 1rem; color: #e2e8f0;
+    }
+    .footer-bar {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      padding: 12px 32px; background: rgba(15,23,42,0.95);
+      border-top: 1px solid #334155;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.85rem; color: #64748b; z-index: 100;
+    }
+    .progress { color: #10b981; font-weight: 600; }
+    .nav-hint { font-size: 0.8rem; }
+    .center { text-align: center; align-items: center; }
+    .logo { font-size: 4rem; margin-bottom: 8px; }
+    .contact { margin-top: 32px; font-size: 1.1rem; color: #94a3b8; }
+    .contact span { color: #34d399; }
+    @media print {
+      .slide { position: relative; opacity: 1; page-break-after: always; height: auto; min-height: 100vh; }
+      .footer-bar { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="deck">
+
+    <!-- SLIDE 1: Title -->
+    <section class="slide active center" data-slide="1">
+      <div class="logo">🌾</div>
+      <span class="tag">FutureTech HackFest 2026</span>
+      <h1>FarmGuard AI</h1>
+      <p class="subtitle">Smart Crop Disease Detection Platform</p>
+      <p style="margin-top: 24px; font-size: 1.1rem;">Theme: <span class="highlight">Innovating Tomorrow with Emerging Technologies</span></p>
+      <p class="contact">Presented by <span>Gowtham</span> · gowthamarjun225@gmail.com</p>
+    </section>
+
+    <!-- SLIDE 2: Problem -->
+    <section class="slide" data-slide="2">
+      <h2>The Problem</h2>
+      <div class="stats">
+        <div class="stat"><div class="num">20–40%</div><div class="lbl">Annual crop loss in India</div></div>
+        <div class="stat"><div class="num">70%</div><div class="lbl">Farmers are small/marginal</div></div>
+        <div class="stat"><div class="num">Days</div><div class="lbl">To get expert diagnosis</div></div>
+      </div>
+      <ul style="margin-top: 28px;">
+        <li>Plant diseases destroy crops before farmers can identify them</li>
+        <li>Rural areas lack access to agricultural experts</li>
+        <li>Traditional diagnosis is slow, costly, and reactive</li>
+        <li>Late treatment leads to financial loss and food waste</li>
+      </ul>
+    </section>
+
+    <!-- SLIDE 3: Solution -->
+    <section class="slide" data-slide="3">
+      <h2>Our Solution — FarmGuard AI</h2>
+      <p>A <span class="highlight">full-stack AI web platform</span> that lets farmers photograph a crop leaf and get instant disease diagnosis with treatment advice.</p>
+      <div class="flow" style="margin-top: 32px;">
+        <div class="flow-step">📷 Upload Photo</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">🤖 AI Analysis</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">📋 Disease + Treatment</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">📊 Dashboard</div>
+      </div>
+      <p style="margin-top: 28px; font-size: 1.1rem;">No expensive hardware — just a phone and internet connection.</p>
+    </section>
+
+    <!-- SLIDE 4: Features -->
+    <section class="slide" data-slide="4">
+      <h2>Key Features</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h4>🔐 Secure Login</h4>
+          <p>Farmer authentication with protected dashboard access</p>
+        </div>
+        <div class="card">
+          <h4>🔍 AI Disease Scanner</h4>
+          <p>Upload leaf image → instant disease identification</p>
+        </div>
+        <div class="card">
+          <h4>📈 Confidence Score</h4>
+          <p>AI confidence % + severity (Low / Medium / High)</p>
+        </div>
+        <div class="card">
+          <h4>💊 Treatment Guide</h4>
+          <p>Actionable treatment & prevention recommendations</p>
+        </div>
+        <div class="card">
+          <h4>📊 Analytics Dashboard</h4>
+          <p>Scan history, risk stats, and crop health tracking</p>
+        </div>
+        <div class="card">
+          <h4>📱 Mobile Friendly</h4>
+          <p>Works on any phone, tablet, or computer</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: How It Works -->
+    <section class="slide" data-slide="5">
+      <h2>How It Works</h2>
+      <div class="grid-2">
+        <div>
+          <h3>User Flow</h3>
+          <ul>
+            <li>Farmer logs into FarmGuard AI</li>
+            <li>Selects crop type (Tomato, Rice, etc.)</li>
+            <li>Uploads photo of affected leaf</li>
+            <li>AI model analyzes the image</li>
+            <li>Results: disease, confidence, severity</li>
+            <li>Treatment recommendation displayed</li>
+            <li>History saved on dashboard</li>
+          </ul>
+        </div>
+        <div>
+          <h3>System Architecture</h3>
+          <div class="card" style="margin-top: 8px;">
+            <p><strong style="color:#34d399;">Frontend</strong> — Next.js + React + Tailwind</p>
+            <p style="margin-top:8px;"><strong style="color:#34d399;">Backend</strong> — Node.js API Routes</p>
+            <p style="margin-top:8px;"><strong style="color:#34d399;">AI/ML</strong> — Hugging Face Vision Transformer</p>
+            <p style="margin-top:8px;"><strong style="color:#34d399;">Deploy</strong> — Vercel Cloud Platform</p>
+            <p style="margin-top:8px;"><strong style="color:#34d399;">Auth</strong> — JWT Session Authentication</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: Tech Stack -->
+    <section class="slide" data-slide="6">
+      <h2>Technology Stack</h2>
+      <div class="tech-grid">
+        <div class="tech-item"><strong>Next.js 14</strong><br><small>Framework</small></div>
+        <div class="tech-item"><strong>React 18</strong><br><small>UI Library</small></div>
+        <div class="tech-item"><strong>TypeScript</strong><br><small>Language</small></div>
+        <div class="tech-item"><strong>Tailwind CSS</strong><br><small>Styling</small></div>
+        <div class="tech-item"><strong>Node.js</strong><br><small>Runtime</small></div>
+        <div class="tech-item"><strong>Hugging Face</strong><br><small>ML Model</small></div>
+        <div class="tech-item"><strong>Vercel</strong><br><small>Deployment</small></div>
+        <div class="tech-item"><strong>Git / GitHub</strong><br><small>Version Control</small></div>
+        <div class="tech-item"><strong>Cursor AI</strong><br><small>Development</small></div>
+      </div>
+      <p style="margin-top: 28px; text-align: center; color: #94a3b8;">
+        Languages: <span class="highlight">TypeScript · JavaScript · HTML · CSS</span>
+      </p>
+    </section>
+
+    <!-- SLIDE 7: Innovation -->
+    <section class="slide" data-slide="7">
+      <h2>Innovation & Uniqueness</h2>
+      <ul>
+        <li><span class="highlight">Accessibility First</span> — Simple UI for rural farmers, no tech skills needed</li>
+        <li><span class="highlight">Instant Results</span> — Photo to diagnosis in seconds vs. days with experts</li>
+        <li><span class="highlight">Zero Hardware Cost</span> — Phone camera only, no IoT sensors required</li>
+        <li><span class="highlight">Full-Stack Platform</span> — AI + Auth + Dashboard in one integrated app</li>
+        <li><span class="highlight">Treatment Guidance</span> — Not just detection, but actionable advice</li>
+        <li><span class="highlight">Sustainable Impact</span> — Reduces crop waste & pesticide overuse</li>
+        <li><span class="highlight">Cloud-Ready</span> — Scalable architecture for millions of farmers</li>
+      </ul>
+    </section>
+
+    <!-- SLIDE 8: Demo -->
+    <section class="slide" data-slide="8">
+      <h2>Live Demo</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h4>🔗 Links</h4>
+          <p>GitHub:<br><span class="highlight">github.com/gowthamcodes225/farmguard-ai</span></p>
+          <p style="margin-top:12px;">Live Demo:<br><span class="highlight">farmguard-ai.vercel.app</span></p>
+        </div>
+        <div class="card">
+          <h4>🔑 Demo Login</h4>
+          <p>Email: <span class="highlight">farmer@farmguard.ai</span></p>
+          <p style="margin-top:8px;">Password: <span class="highlight">demo123</span></p>
+        </div>
+      </div>
+      <h3 style="margin-top: 28px;">Demo Steps</h3>
+      <div class="flow">
+        <div class="flow-step">1. Login</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">2. Upload Leaf Photo</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">3. Analyze Disease</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">4. View Dashboard</div>
+      </div>
+    </section>
+
+    <!-- SLIDE 9: Future Scope -->
+    <section class="slide" data-slide="9">
+      <h2>Future Scope</h2>
+      <div class="grid-2">
+        <ul>
+          <li>Android / iOS mobile application</li>
+          <li>IoT soil sensor integration (moisture, pH)</li>
+          <li>Multi-language support (Tamil, Hindi)</li>
+          <li>Government & NGO farmer outreach</li>
+        </ul>
+        <ul>
+          <li>Regional disease outbreak heatmaps</li>
+          <li>Market price & sell-timing recommendations</li>
+          <li>Offline mode for low-connectivity areas</li>
+          <li>Integration with agri-input suppliers</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SLIDE 10: Thank You -->
+    <section class="slide center" data-slide="10">
+      <div class="logo">🌾</div>
+      <h1>Thank You!</h1>
+      <p class="subtitle" style="margin-top: 16px;">FarmGuard AI — Protecting Crops with AI</p>
+      <p class="contact" style="margin-top: 40px;">
+        <span>Gowtham</span><br>
+        gowthamarjun225@gmail.com<br><br>
+        GitHub: <span>github.com/gowthamcodes225/farmguard-ai</span>
+      </p>
+      <p style="margin-top: 32px; color: #64748b;">FutureTech HackFest 2026 · H & P Projects</p>
+    </section>
+
+  </div>
+
+  <div class="footer-bar">
+    <span class="progress" id="counter">1 / 10</span>
+    <span class="nav-hint">← → Arrow keys or click to navigate · F11 for fullscreen</span>
+    <span>FarmGuard AI</span>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+
+    function show(n) {
+      slides[current].classList.remove('active');
+      current = (n + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      document.getElementById('counter').textContent = `${current + 1} / ${slides.length}`;
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); show(current + 1); }
+      if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); show(current - 1); }
+      if (e.key === 'Home') show(0);
+      if (e.key === 'End') show(slides.length - 1);
+    });
+
+    document.querySelector('.deck').addEventListener('click', (e) => {
+      const x = e.clientX / window.innerWidth;
+      if (x > 0.65) show(current + 1);
+      else if (x < 0.35) show(current - 1);
+    });
+  </script>
+</body>
+</html>
